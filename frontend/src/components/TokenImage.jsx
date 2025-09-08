@@ -11,14 +11,14 @@ const TokenImage = ({
     const symbol = tokenSymbol?.toLowerCase();
     switch (symbol) {
       case "usdt":
-        return "/usdt.png";
+        return new URL("../assets/usdt.png", import.meta.url).href;
       case "usdc":
-        return "/usdc.png";
+        return new URL("../assets/usdc.png", import.meta.url).href;
       case "usd":
       case "mockusd":
-        return "/Vpay.png";
+        return new URL("../assets/Vpay.png", import.meta.url).href;
       default:
-        return `/Vpay.png`; // Default fallback
+        return new URL("../assets/Vpay.png", import.meta.url).href; // Default fallback
     }
   };
 

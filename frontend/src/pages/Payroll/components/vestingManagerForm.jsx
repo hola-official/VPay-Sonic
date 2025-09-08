@@ -28,6 +28,9 @@ import { useTokenInfo } from "@/hooks/useTokenInfo";
 import { useAccount } from "wagmi";
 import ContactSelector from "@/components/ContactSelector";
 import TokenImage from "@/components/TokenImage";
+import usdtImage from "@/assets/usdt.png";
+import usdcImage from "@/assets/usdc.png";
+import vpayImage from "@/assets/Vpay.png";
 
 // Enums for the unified vesting form
 const UnlockSchedule = {
@@ -898,13 +901,13 @@ function UnifiedVestingForm({
                     <div className="w-8 h-8 rounded-full flex items-center justify-center">
                       {key === "usdt" ? (
                         <img
-                          src="/usdt.png"
+                          src={usdtImage}
                           alt="USDT"
                           className="w-8 h-8 rounded-full"
                         />
                       ) : key === "usdc" ? (
                         <img
-                          src="/usdc.png"
+                          src={usdcImage}
                           alt="USDC"
                           className="w-8 h-8 rounded-full"
                         />
@@ -1635,7 +1638,7 @@ function MultipleVestingForm({
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-full flex items-center justify-center">
                         <img
-                          src="/usdt.png"
+                          src={usdtImage}
                           alt="USDT"
                           className="w-8 h-8 rounded-full"
                         />
@@ -1681,7 +1684,7 @@ function MultipleVestingForm({
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-full flex items-center justify-center">
                         <img
-                          src="/usdc.png"
+                          src={usdcImage}
                           alt="USDC"
                           className="w-8 h-8 rounded-full"
                         />

@@ -71,7 +71,7 @@ const sendInvoiceMail = async (invoice, creatorInfo) => {
     const emailData = {
       invoice,
       creatorInfo,
-      invoiceUrl: `${process.env.FRONTEND_URL || "http://localhost:3000"}/invoice/${invoice._id}`,
+      invoiceUrl: `${process.env.FRONTEND_URL || "http://localhost:3000"}/invoices/${invoice._id}`,
       paymentUrl: `${process.env.FRONTEND_URL || "http://localhost:3000"}/pay/${invoice._id}`,
       currentDate: new Date().toLocaleDateString(),
     };

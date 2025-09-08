@@ -21,6 +21,9 @@ import { useInvoices } from "@/hooks/useInvoices";
 import { convertCurrency } from "@/lib/currencyConverter";
 import { toast } from "react-toastify";
 import { erc20Abi } from "viem";
+import usdtImage from "@/assets/usdt.png";
+import usdcImage from "@/assets/usdc.png";
+import vpayImage from "@/assets/Vpay.png";
 
 const USDC_ADDRESS = "0x29219dd400f2Bf60E5a23d13Be72B486D4038894";
 const USDT_ADDRESS = "0xc2132D05D31c914a87C6611C10748AEb04B58e8F";
@@ -900,7 +903,7 @@ export default function InvoiceViewPage() {
                         }`}
                       >
                         <img
-                          src="/usdt.png"
+                          src={vpayImage}
                           alt="USD"
                           className="w-5 h-5"
                           onError={(e) => {
@@ -919,7 +922,7 @@ export default function InvoiceViewPage() {
                         }`}
                       >
                         <img
-                          src="/usdc.png"
+                          src={usdcImage}
                           alt="USDC"
                           className="w-5 h-5"
                           onError={(e) => {
@@ -938,7 +941,7 @@ export default function InvoiceViewPage() {
                         }`}
                       >
                         <img
-                          src="/usdt.png"
+                          src={usdtImage}
                           alt="USDT"
                           className="w-5 h-5"
                           onError={(e) => {
@@ -967,7 +970,7 @@ export default function InvoiceViewPage() {
                         <span className="text-gray-400">Token:</span>
                         <div className="flex items-center gap-2">
                           <img
-                            src={`/${selectedToken.toLowerCase()}.png`}
+                            src={selectedToken === "USDC" ? usdcImage : selectedToken === "USDT" ? usdtImage : vpayImage}
                             alt={selectedToken}
                             className="w-4 h-4"
                             onError={(e) => {
