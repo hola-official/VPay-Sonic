@@ -2,8 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
 
-const BASE_URL = "http://localhost:3000/api/invoices";
-// "https://v-pay-backend.vercel.app/api/invoices";
+const BASE_URL = "https://v-pay-sonic-backend.vercel.app/api/invoices";
 
 export function useInvoices() {
   const { address: userAddress } = useAccount();
