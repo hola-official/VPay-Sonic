@@ -146,6 +146,21 @@ export default function TokenLockForm() {
     }
   };
 
+  const handleTokenSelectionChange = (selection) => {
+    setTokenSelection(selection);
+
+    if (selection === "custom") {
+      setTokenAddress("");
+      setAddressError("");
+    } else {
+      const token = predefinedTokens[selection];
+      if (token) {
+        setTokenAddress(token.address);
+        setAddressError("");
+      }
+    }
+  };
+
   // Validate amount
   const handleAmountChange = (e) => {
     const value = e.target.value;
@@ -877,87 +892,54 @@ export default function TokenLockForm() {
 
               {/* Token Selection Options */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                {/* USDT Option */}
-                <motion.div
-                  className={`p-4 rounded-xl border cursor-pointer transition-all ${
-                    tokenSelection === "usdt"
-                      ? "border-[#018ABD] bg-[#018ABD]/10"
-                      : "border-[#475B74]/50 bg-[#0a0a20]/50 hover:border-[#018ABD]/50"
-                  }`}
-                  onClick={() => {
-                    setTokenSelection("usdt");
-                    setTokenAddress(predefinedTokens.usdt.address);
-                    setAddressError("");
-                  }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      name="tokenSelection"
-                      checked={tokenSelection === "usdt"}
-                      onChange={() => {}}
-                      className="text-[#018ABD] focus:ring-[#018ABD]/50"
-                    />
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#26A17B] to-[#26A17B] flex items-center justify-center text-white text-xs font-bold">
-                          T
-                        </div>
-                        <div>
-                          <div className="text-sm font-medium text-[#97CBDC]">
-                            USDT
+                {Object.entries(predefinedTokens).map(([key, token]) => (
+                  <motion.div
+                    key={key}
+                    className={`p-4 rounded-xl border cursor-pointer transition-all ${
+                      tokenSelection === key
+                        ? "border-[#018ABD] bg-[#018ABD]/10"
+                        : "border-[#475B74]/50 bg-[#0a0a20]/50 hover:border-[#018ABD]/50"
+                    }`}
+                    onClick={() => handleTokenSelectionChange(key)}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        name="tokenSelection"
+                        checked={tokenSelection === key}
+                        onChange={() => {}}
+                        className="text-[#018ABD] focus:ring-[#018ABD]/50"
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <div
+                            className={`w-8 h-8 rounded-full bg-gradient-to-r ${
+                              key === "usdt"
+                                ? "from-[#26A17B] to-[#26A17B]"
+                                : key === "usdc"
+                                  ? "from-[#2775CA] to-[#2775CA]"
+                                  : key === "usd"
+                                    ? "from-[#018ABD] to-[#018ABD]"
+                                    : "from-[#475B74] to-[#475B74]"
+                            } flex items-center justify-center text-white text-xs font-bold`}
+                          >
+                            {token.symbol.slice(0, 2)}
                           </div>
-                          <div className="text-xs text-[#97CBDC]/70">
-                            Tether USD
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* USDC Option */}
-                <motion.div
-                  className={`p-4 rounded-xl border cursor-pointer transition-all ${
-                    tokenSelection === "usdc"
-                      ? "border-[#018ABD] bg-[#018ABD]/10"
-                      : "border-[#475B74]/50 bg-[#0a0a20]/50 hover:border-[#018ABD]/50"
-                  }`}
-                  onClick={() => {
-                    setTokenSelection("usdc");
-                    setTokenAddress(predefinedTokens.usdc.address);
-                    setAddressError("");
-                  }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      name="tokenSelection"
-                      checked={tokenSelection === "usdc"}
-                      onChange={() => {}}
-                      className="text-[#018ABD] focus:ring-[#018ABD]/50"
-                    />
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#2775CA] to-[#2775CA] flex items-center justify-center text-white text-xs font-bold">
-                          C
-                        </div>
-                        <div>
-                          <div className="text-sm font-medium text-[#97CBDC]">
-                            USDC
-                          </div>
-                          <div className="text-xs text-[#97CBDC]/70">
-                            USD Coin
+                          <div>
+                            <div className="text-sm font-medium text-[#97CBDC]">
+                              {token.symbol}
+                            </div>
+                            <div className="text-xs text-[#97CBDC]/70">
+                              {token.name}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                ))}
 
                 {/* Custom Token Option */}
                 <motion.div
@@ -966,11 +948,7 @@ export default function TokenLockForm() {
                       ? "border-[#018ABD] bg-[#018ABD]/10"
                       : "border-[#475B74]/50 bg-[#0a0a20]/50 hover:border-[#018ABD]/50"
                   }`}
-                  onClick={() => {
-                    setTokenSelection("custom");
-                    setTokenAddress("");
-                    setAddressError("");
-                  }}
+                  onClick={() => handleTokenSelectionChange("custom")}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -1076,7 +1054,7 @@ export default function TokenLockForm() {
             </AnimatePresence>
 
             {/* Selected Token Address Display - Show for predefined tokens */}
-            {tokenSelection !== "custom" && (
+            {tokenSelection !== "custom" && tokenAddress && (
               <div className="p-3 rounded-lg bg-[#0a0a20]/80 border border-[#475B74]/30">
                 <div className="flex items-center justify-between">
                   <div className="text-sm text-[#97CBDC]/70">

@@ -50,7 +50,12 @@ export default function InvoiceViewPage() {
     });
 
   // Read contract data - only when needed
-  const tokenAddress = selectedToken === "USDC" ? USDC_ADDRESS : selectedToken === "USDT" ? USDT_ADDRESS : USD_ADDRESS;
+  const tokenAddress =
+    selectedToken === "USDC"
+      ? USDC_ADDRESS
+      : selectedToken === "USDT"
+        ? USDT_ADDRESS
+        : USD_ADDRESS;
 
   useEffect(() => {
     const loadInvoice = async () => {
