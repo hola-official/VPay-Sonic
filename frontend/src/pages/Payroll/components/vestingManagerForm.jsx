@@ -26,6 +26,7 @@ import { useTokenLock } from "@/hooks/useTokenLock";
 import { useTokenInfo } from "@/hooks/useTokenInfo";
 import { useAccount } from "wagmi";
 import ContactSelector from "@/components/ContactSelector";
+import TokenImage from "@/components/TokenImage";
 
 // Enums for the unified vesting form
 const UnlockSchedule = {
