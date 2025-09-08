@@ -22,6 +22,7 @@ import {
   AlertCircle,
   ChevronRight,
 } from "lucide-react";
+import { useVestingManager } from "@/hooks/useVestingManager";
 import { useTokenLock } from "@/hooks/useTokenLock";
 import { useTokenInfo } from "@/hooks/useTokenInfo";
 import { useAccount } from "wagmi";
@@ -120,6 +121,7 @@ export default function VestingManagerForm() {
   const [vestingDetails, setVestingDetails] = useState(null);
 
   // Hook instances
+  const vestingManager = useVestingManager();
   const tokenLock = useTokenLock();
   const { tokenInfo, isLoadingToken, tokenError, fetchTokenInfo } =
     useTokenInfo(tokenAddress, address);
@@ -218,16 +220,22 @@ export default function VestingManagerForm() {
       if (validRecipients.length === 1) {
         // Single recipient - use single vesting function
         const recipient = validRecipients[0];
-        // For single recipient, we can use simple vesting lock
-        const result = await tokenLock.performTokenLock(
+        const result = await vestingManager.createVestingSchedule(
           tokenAddress,
-          tokenInfo.decimals,
+          recipient.address,
           recipient.amount,
+          tokenInfo.decimals,
+          startTime,
           endTime,
-          recipient.title || "Vesting Schedule"
+          unlockSchedule,
+          autoClaim,
+          recipient.title || "Vesting Schedule",
+          recipient.email || "",
+          cancelPermission,
+          changeRecipientPermission
         );
 
-        if (result.success) {
+        if (result) {
           // Reset form
           setRecipients([
             { address: "", amount: "", title: "", email: "", error: "" },
@@ -241,18 +249,22 @@ export default function VestingManagerForm() {
         // Multiple recipients - use multiple vesting function
         const addresses = validRecipients.map((r) => r.address);
         const amounts = validRecipients.map((r) => r.amount);
+        const titles = validRecipients.map((r) => r.title || "");
+        const emails = validRecipients.map((r) => r.email || "");
 
-        // For multiple recipients, use multiple vesting lock
-        const hash = await tokenLock.multipleVestingLock(
+        const hash = await vestingManager.createMultipleVestingSchedules(
+          tokenAddress,
           addresses,
           amounts,
-          tokenAddress,
           tokenInfo.decimals,
           startTime,
-          "2000", // 20% TGE
-          "86400", // 1 day cycle
-          "1000", // 10% per cycle
-          "Multiple Vesting Schedules"
+          endTime,
+          unlockSchedule,
+          autoClaim,
+          titles,
+          emails,
+          cancelPermission,
+          changeRecipientPermission
         );
 
         if (hash) {
@@ -721,7 +733,7 @@ export default function VestingManagerForm() {
               errors={errors}
               showTooltip={showTooltip}
               minDateTime={minDateTime}
-              tokenLock={tokenLock}
+              vestingManager={vestingManager}
               onTokenSelectionChange={setTokenSelection}
               onTokenAddressChange={handleTokenAddressChange}
               onStartTimeChange={setStartTime}
@@ -830,7 +842,7 @@ function UnifiedVestingForm({
   errors,
   showTooltip,
   minDateTime,
-  tokenLock,
+  vestingManager,
   onTokenSelectionChange,
   onTokenAddressChange,
   onStartTimeChange,
@@ -1445,7 +1457,7 @@ function UnifiedVestingForm({
         <motion.button
           onClick={onCreateVestingSchedule}
           disabled={
-            tokenLock.isProcessing ||
+            vestingManager.isProcessing ||
             !tokenAddress ||
             recipients.length === 0 ||
             !startTime ||
@@ -1457,10 +1469,10 @@ function UnifiedVestingForm({
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
-          {tokenLock.isProcessing ? (
+          {vestingManager.isProcessing ? (
             <span className="flex items-center">
               <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-              {tokenLock.isApproving
+              {vestingManager.isApproving
                 ? "Approving..."
                 : recipients.length === 1
                   ? "Creating Schedule..."

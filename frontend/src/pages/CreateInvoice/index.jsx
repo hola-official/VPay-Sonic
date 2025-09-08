@@ -457,7 +457,8 @@ export default function CreateInvoicePage() {
                     className="text-blue-400 hover:text-blue-300 underline cursor-pointer"
                   >
                     {selectedContact.walletAddress.slice(0, 6)}...
-                    {selectedContact.walletAddress.slice(-4)} (click to copy)
+                    {selectedContact.walletAddress.slice
+                    (-4)} (click to copy)
                   </button>
                 </span>
               ) : (
