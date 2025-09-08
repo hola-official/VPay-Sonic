@@ -889,21 +889,21 @@ export default function InvoiceViewPage() {
                       <button
                         onClick={() => setSelectedToken("USD")}
                         className={`flex-1 px-4 py-2 rounded-lg border transition-all duration-200 flex items-center justify-center gap-2 ${
-                          selectedToken === "USDT"
+                          selectedToken === "USD"
                             ? "border-green-500 bg-green-500/20 text-green-400"
                             : "border-white/20 text-gray-400 hover:border-white/40 hover:text-white"
                         }`}
                       >
                         <img
                           src="/usdt.png"
-                          alt="USDT"
+                          alt="USD"
                           className="w-5 h-5"
                           onError={(e) => {
                             e.target.style.display = "none";
                             e.target.nextSibling.style.display = "inline";
                           }}
                         />
-                        USDT
+                        USD
                       </button>
                       <button
                         onClick={() => setSelectedToken("USDC")}
