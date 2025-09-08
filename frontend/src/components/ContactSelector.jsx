@@ -88,6 +88,7 @@ export default function ContactSelector({
   }, [searchTerm, contacts]);
 
   const handleContactSelect = (contact) => {
+    console.log("ContactSelector: Contact selected:", contact);
     setSelectedContact(contact);
     setSearchTerm(contact.fullName);
     setIsOpen(false);

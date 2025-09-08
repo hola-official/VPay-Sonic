@@ -10,15 +10,19 @@ import {
   User,
   CreditCard,
 } from "lucide-react";
+import { useAccount } from "wagmi";
+import ContactSelector from "@/components/ContactSelector";
 
 export default function CreateInvoicePage() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { address } = useAccount();
   const [nextInvoiceNumber] = useState(1001);
+  const [selectedContact, setSelectedContact] = useState(null);
 
   const [formData, setFormData] = useState({
     invoiceNumber: "",
-    creatorId: "", // Wallet address of creator
+    creatorId: address, // Wallet address of creator
     client: {
       name: "",
       email: "",
@@ -140,6 +144,38 @@ export default function CreateInvoicePage() {
 
   const validateWalletAddress = (address) => {
     return address.startsWith("0x") && address.length === 42;
+  };
+
+  const handleContactSelect = (contact) => {
+    console.log("Contact selected:", contact);
+    console.log(
+      "Current formData.payerWalletAddr before:",
+      formData.payerWalletAddr
+    );
+
+    setSelectedContact(contact);
+    setFormData((prev) => {
+      const newData = {
+        ...prev,
+        client: {
+          name: contact.fullName,
+          email: contact.email || "",
+        },
+        // Explicitly keep payerWalletAddr unchanged
+        payerWalletAddr: prev.payerWalletAddr,
+      };
+      console.log("New form data:", newData);
+      console.log("New payerWalletAddr:", newData.payerWalletAddr);
+      return newData;
+    });
+  };
+
+  const copyWalletAddress = () => {
+    if (selectedContact) {
+      navigator.clipboard.writeText(selectedContact.walletAddress);
+      // You could add a toast notification here
+      alert("Wallet address copied to clipboard!");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -317,6 +353,30 @@ export default function CreateInvoicePage() {
           <h3 className="text-lg font-semibold text-white mb-4">
             Client Information
           </h3>
+
+          {/* Contact Selector */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-400 mb-2">
+              Select from Contacts (Optional)
+            </label>
+            <ContactSelector
+              onSelect={handleContactSelect}
+              placeholder="Search your contacts..."
+              showEmail={true}
+              showLabel={true}
+              className="w-full"
+            />
+            {selectedContact && (
+              <div className="mt-2 p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+                <p className="text-sm text-green-400">
+                  ✓ Selected: {selectedContact.fullName} (
+                  {selectedContact.walletAddress.slice(0, 6)}...
+                  {selectedContact.walletAddress.slice(-4)})
+                </p>
+              </div>
+            )}
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-400 mb-2">
@@ -388,7 +448,21 @@ export default function CreateInvoicePage() {
               />
             </div>
             <p className="text-xs text-gray-500 mt-1">
-              Leave empty if unknown at creation time
+              {selectedContact ? (
+                <span>
+                  Available:{" "}
+                  <button
+                    type="button"
+                    onClick={copyWalletAddress}
+                    className="text-blue-400 hover:text-blue-300 underline cursor-pointer"
+                  >
+                    {selectedContact.walletAddress.slice(0, 6)}...
+                    {selectedContact.walletAddress.slice(-4)} (click to copy)
+                  </button>
+                </span>
+              ) : (
+                "Leave empty if unknown at creation time"
+              )}
             </p>
           </div>
         </div>
