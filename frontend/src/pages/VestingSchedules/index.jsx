@@ -146,10 +146,11 @@ export default function VestingSchedulesPage() {
     return ((now - start) / (end - start)) * 100;
   };
 
-  const formatAmount = (amount, decimals = 18) => {
-    if (!amount) return "0";
-    return Number(formatUnits(amount, decimals)).toLocaleString();
-  };
+const formatAmount = (amount, decimals = 18) => {
+  if (!amount || !decimals) return null;
+  if (!amount) return 0;
+  return Number(amount).toLocaleString();
+};
 
   const formatScheduleTime = (timestamp) => {
     return new Date(Number(timestamp) * 1000).toLocaleString();

@@ -20,7 +20,7 @@ export function Header({ onMenuToggle }) {
           <VPayLogo size="md" variant="default" />
           <div className="hidden sm:block w-px h-6 bg-white/20" />
           <h2 className="text-lg sm:text-xl font-medium text-gray-300 truncate">
-            Token Distribution
+            Web3 Workplace Revolution
           </h2>
         </div>
 

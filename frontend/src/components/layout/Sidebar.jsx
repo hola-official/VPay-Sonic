@@ -266,7 +266,7 @@ export function Sidebar({ isOpen, onClose }) {
           <div className="p-4 sm:p-6">
             {/* Mobile Close Button */}
             <div className="flex items-center justify-between mb-6 lg:mb-8">
-              <div className="flex items-center gap-3">
+              {/* <div className="flex items-center gap-3">
                 <VPayLogo
                   size="lg"
                   variant="icon"
@@ -278,7 +278,7 @@ export function Sidebar({ isOpen, onClose }) {
                   </h1>
                   <p className="text-xs text-gray-400">Secure Token Vesting</p>
                 </div>
-              </div>
+              </div> */}
 
               {/* Close button for mobile */}
               <button

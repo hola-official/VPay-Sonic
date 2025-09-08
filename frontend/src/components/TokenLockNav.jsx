@@ -50,7 +50,7 @@ export default function TokenLockNav() {
     <div className="w-full max-w-4xl mx-auto mb-8">
       <div className="mt-2 mb-4 p-4 rounded-xl bg-[#0a0a20]/60 border border-[#475B74]/30 flex items-start gap-3 justify-between">
         <h1 className="text-xl sm:text-3xl font-bold text-[#97CBDC] leading-tight">
-          Token Distribution
+          Web3 Workplace Revolution
         </h1>
         <div>
           <ConnectButton />

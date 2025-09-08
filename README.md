@@ -2,7 +2,7 @@
 
 A comprehensive Web3 application for managing worker contacts with blockchain integration.
 
-## 🏗️ Project Structure
+## ��️ Project Structure
 
 ```
 VPay/
@@ -87,6 +87,11 @@ Solidity smart contracts built with Foundry framework.
 - `TokenLocker.sol` - Token locking mechanism
 - `Counter.sol` - Example contract
 
+### Contract Addresses (Sonic Mainnet):
+- **Vesting Manager**: [`0x17282d6Ad90e84E24ee68fe68fD01014D9B8d7B3`](https://sonicscan.org/address/0x17282d6Ad90e84E24ee68fe68fD01014D9B8d7B3)
+- **Token Lock**: [`0x2eb02c8b9733b240C6Fa73dDf1b25f373199c56c`](https://sonicscan.org/address/0x2eb02c8b9733b240C6Fa73dDf1b25f373199c56c)
+- **MockUSD**: [`0x0e95b78Fd39Db924862335831F73f0eD9eBdFe32`](https://sonicscan.org/address/0x0e95b78Fd39Db924862335831F73f0eD9eBdFe32)
+
 ## 🔧 Environment Setup
 
 ### Backend (.env)
@@ -132,4 +137,4 @@ This project is licensed under the MIT License.
 
 ## 🆘 Support
 
-For support, please open an issue in the repository. 
+For support, please open an issue in the repository.

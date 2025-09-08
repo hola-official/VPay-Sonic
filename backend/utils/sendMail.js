@@ -22,9 +22,9 @@ let transporter = nodemailer.createTransport(config);
 // Verify transporter connection
 transporter.verify(function (error, success) {
   if (error) {
-    console.error("SMTP connection error:", error);
+    
   } else {
-    console.log("SMTP server is ready to send emails");
+    
   }
 });
 
@@ -51,10 +51,10 @@ const sendMail = async (options) => {
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log("Email sent successfully:", info.messageId);
+    
     return info;
   } catch (error) {
-    console.error("Error sending email:", error);
+    
     throw error;
   }
 };
@@ -64,7 +64,7 @@ const sendInvoiceMail = async (invoice, creatorInfo) => {
   try {
     // Check if client has email (required for sending)
     if (!invoice.client || !invoice.client.email) {
-      console.log("No client email available, skipping invoice email");
+      
       return;
     }
 
@@ -83,9 +83,9 @@ const sendInvoiceMail = async (invoice, creatorInfo) => {
       data: emailData,
     });
 
-    console.log(`Invoice email sent to ${invoice.client.email}`);
+    
   } catch (error) {
-    console.error("Error sending invoice email:", error);
+    
     // Don't throw error, just log it
   }
 };
@@ -119,9 +119,9 @@ const sendPaymentNotificationMail = async (
       data: emailData,
     });
 
-    console.log(`Payment notification email sent to creator`);
+    
   } catch (error) {
-    console.error("Error sending payment notification email:", error);
+    
     // Don't throw error, just log it
   }
 };
@@ -157,9 +157,9 @@ const sendPaymentVerificationMail = async (
       data: emailData,
     });
 
-    console.log(`Payment verification email sent`);
+    
   } catch (error) {
-    console.error("Error sending payment verification email:", error);
+    
     // Don't throw error, just log it
   }
 };
@@ -190,9 +190,9 @@ const sendRecurringInvoiceMail = async (invoice, creatorInfo) => {
       data: emailData,
     });
 
-    console.log(`Recurring invoice email sent to ${invoice.client.email}`);
+    
   } catch (error) {
-    console.error("Error sending recurring invoice email:", error);
+    
     // Don't throw error, just log it
   }
 };
@@ -202,7 +202,7 @@ const sendOverdueReminderMail = async (invoice, creatorInfo) => {
   try {
     // Check if client has email (required for sending)
     if (!invoice.client || !invoice.client.email) {
-      console.log("No client email available, skipping overdue reminder email");
+      
       return;
     }
 
@@ -224,9 +224,9 @@ const sendOverdueReminderMail = async (invoice, creatorInfo) => {
       data: emailData,
     });
 
-    console.log(`Overdue reminder email sent to ${invoice.client.email}`);
+    
   } catch (error) {
-    console.error("Error sending overdue reminder email:", error);
+    
     // Don't throw error, just log it
   }
 };
@@ -240,9 +240,9 @@ const sendCustomEmail = async (toEmail, subject, template, data) => {
       template,
       data,
     });
-    console.log(`Custom email sent to ${toEmail}`);
+    
   } catch (error) {
-    console.error("Error sending custom email:", error);
+    
     throw error;
   }
 };
