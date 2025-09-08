@@ -1507,7 +1507,7 @@ function MultipleVestingForm({
   onMultipleCsvInputChange,
   onShowMultipleCsvInputChange,
   onParseMultipleCsvInput,
-  onOpenPickerIndexChange,
+  onSetOpenPickerIndex,
   onTgeDateChange,
   onTgeBpsChange,
   onCycleChange,
@@ -2307,7 +2307,7 @@ function MultipleVestingForm({
                       <button
                         type="button"
                         onClick={() =>
-                          onOpenPickerIndexChange(
+                          onSetOpenPickerIndex(
                             openPickerIndex === index ? null : index
                           )
                         }
@@ -2332,7 +2332,7 @@ function MultipleVestingForm({
                               "email",
                               contact.email || ""
                             );
-                            onOpenPickerIndexChange(null);
+                            onSetOpenPickerIndex(null);
                           }}
                         />
                       </div>
