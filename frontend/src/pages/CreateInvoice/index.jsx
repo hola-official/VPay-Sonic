@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useAccount } from "wagmi";
 import ContactSelector from "@/components/ContactSelector";
+import { useInvoices } from "@/hooks/useInvoices";
 
 export default function CreateInvoicePage() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export default function CreateInvoicePage() {
   const { address } = useAccount();
   const [nextInvoiceNumber] = useState(1001);
   const [selectedContact, setSelectedContact] = useState(null);
+  const { createInvoice, isLoading } = useInvoices();
 
   const [formData, setFormData] = useState({
     invoiceNumber: "",
@@ -78,6 +80,13 @@ export default function CreateInvoicePage() {
     setFormData((prev) => ({ ...prev, invoiceNumber: nextInvoiceNumber }));
   }, [nextInvoiceNumber]);
 
+  // Update creatorId when address changes
+  useEffect(() => {
+    if (address) {
+      setFormData((prev) => ({ ...prev, creatorId: address }));
+    }
+  }, [address]);
+
   const addItem = () => {
     setFormData((prev) => ({
       ...prev,
@@ -120,7 +129,7 @@ export default function CreateInvoicePage() {
     });
   };
 
-  const calculateTotals = () => {
+  const calculateTotals = useMemo(() => {
     const subTotal = formData.items.reduce(
       (sum, item) => sum + item.amtAfterDiscount,
       0
@@ -133,7 +142,7 @@ export default function CreateInvoicePage() {
     const grandTotal = subTotal + vatValue;
 
     return { subTotal, totalDiscount, vatValue, grandTotal };
-  };
+  }, [formData.items, formData.vatPercent]);
 
   const togglePaymentMethod = () => {
     setFormData((prev) => ({
@@ -225,14 +234,19 @@ export default function CreateInvoicePage() {
 
     setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // Call the actual API
+      await createInvoice(formData);
       navigate("/invoices");
-    }, 2000);
+    } catch (error) {
+      console.error("Error creating invoice:", error);
+      // Error handling is already done in the useInvoices hook
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const totals = calculateTotals();
+  const totals = calculateTotals;
 
   // Update remaining amount when grand total changes
   useEffect(() => {
@@ -457,8 +471,7 @@ export default function CreateInvoicePage() {
                     className="text-blue-400 hover:text-blue-300 underline cursor-pointer"
                   >
                     {selectedContact.walletAddress.slice(0, 6)}...
-                    {selectedContact.walletAddress.slice
-                    (-4)} (click to copy)
+                    {selectedContact.walletAddress.slice(-4)} (click to copy)
                   </button>
                 </span>
               ) : (
@@ -993,10 +1006,10 @@ export default function CreateInvoicePage() {
           </button>
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || isLoading}
             className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all duration-200 shadow-lg shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isSubmitting ? (
+            {isSubmitting || isLoading ? (
               <div className="flex items-center justify-center">
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
                 Creating Invoice...

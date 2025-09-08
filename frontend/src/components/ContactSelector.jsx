@@ -155,7 +155,7 @@ export default function ContactSelector({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute top-full left-0 right-0 mt-2 bg-[#1D2538] border border-[#475B74]/50 rounded-xl shadow-lg z-50 max-h-44 overflow-y-auto"
+            className="absolute top-full left-0 right-0 mt-2 bg-[#1D2538] border border-[#475B74]/50 rounded-xl shadow-lg z-50 max-h-38 overflow-y-auto"
           >
             {isSearching ? (
               <div className="p-4 text-center text-[#97CBDC]/70">
