@@ -911,10 +911,18 @@ function UnifiedVestingForm({
                           alt="USDC"
                           className="w-8 h-8 rounded-full"
                         />
+                      ) : key === "usd" ? (
+                        <img
+                          src={usdtImage}
+                          alt="USD"
+                          className="w-8 h-8 rounded-full"
+                        />
                       ) : (
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#26A17B] to-[#26A17B] flex items-center justify-center text-white text-xs font-bold">
-                          {token.symbol[0]}
-                        </div>
+                        <img
+                          src={usdtImage}
+                          alt="USD"
+                          className="w-8 h-8 rounded-full"
+                        />
                       )}
                     </div>
                     <div>
@@ -1695,6 +1703,51 @@ function MultipleVestingForm({
                         </div>
                         <div className="text-xs text-[#97CBDC]/70">
                           USD Coin
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className={`p-4 rounded-xl border cursor-pointer transition-all ${
+                  tokenSelection === "usd"
+                    ? "border-[#018ABD] bg-[#018ABD]/10"
+                    : "border-[#475B74]/50 bg-[#0a0a20]/50 hover:border-[#018ABD]/50"
+                }`}
+                onClick={() => {
+                  onTokenSelectionChange("usd");
+                  onTokenAddressChange({
+                    target: { value: predefinedTokens.usd.address },
+                  });
+                }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="tokenSelection"
+                    checked={tokenSelection === "usd"}
+                    onChange={() => {}}
+                    className="text-[#018ABD] focus:ring-[#018ABD]/50"
+                  />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center">
+                        <img
+                          src={usdtImage}
+                          alt="USD"
+                          className="w-8 h-8 rounded-full"
+                        />
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium text-[#97CBDC]">
+                          USD
+                        </div>
+                        <div className="text-xs text-[#97CBDC]/70">
+                          MockUSD
                         </div>
                       </div>
                     </div>
