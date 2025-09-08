@@ -24,6 +24,7 @@ import { erc20Abi } from "viem";
 
 const USDC_ADDRESS = "0x29219dd400f2Bf60E5a23d13Be72B486D4038894";
 const USDT_ADDRESS = "0xc2132D05D31c914a87C6611C10748AEb04B58e8F";
+const USD_ADDRESS = "0x0e95b78Fd39Db924862335831F73f0eD9eBdFe32";
 
 export default function InvoiceViewPage() {
   const { id } = useParams();
@@ -49,7 +50,7 @@ export default function InvoiceViewPage() {
     });
 
   // Read contract data - only when needed
-  const tokenAddress = selectedToken === "USDC" ? USDC_ADDRESS : USDT_ADDRESS;
+  const tokenAddress = selectedToken === "USDC" ? USDC_ADDRESS : selectedToken === "USDT" ? USDT_ADDRESS : USD_ADDRESS;
 
   useEffect(() => {
     const loadInvoice = async () => {
@@ -885,6 +886,25 @@ export default function InvoiceViewPage() {
                       Select Token
                     </label>
                     <div className="flex gap-2">
+                      <button
+                        onClick={() => setSelectedToken("USD")}
+                        className={`flex-1 px-4 py-2 rounded-lg border transition-all duration-200 flex items-center justify-center gap-2 ${
+                          selectedToken === "USDT"
+                            ? "border-green-500 bg-green-500/20 text-green-400"
+                            : "border-white/20 text-gray-400 hover:border-white/40 hover:text-white"
+                        }`}
+                      >
+                        <img
+                          src="/usdt.png"
+                          alt="USDT"
+                          className="w-5 h-5"
+                          onError={(e) => {
+                            e.target.style.display = "none";
+                            e.target.nextSibling.style.display = "inline";
+                          }}
+                        />
+                        USDT
+                      </button>
                       <button
                         onClick={() => setSelectedToken("USDC")}
                         className={`flex-1 px-4 py-2 rounded-lg border transition-all duration-200 flex items-center justify-center gap-2 ${

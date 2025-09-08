@@ -59,6 +59,11 @@ export default function TokenLockForm() {
       name: "USD Coin",
       symbol: "USDC",
     },
+    usd: {
+      address: "0x0e95b78Fd39Db924862335831F73f0eD9eBdFe32",
+      name: "MockUSD",
+      symbol: "USD",
+    },
   });
 
   // Vesting specific state
