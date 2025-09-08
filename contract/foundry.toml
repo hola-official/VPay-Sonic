@@ -1,7 +1,7 @@
 [profile.default]
 src = "src"
 out = "out"
-viaIR= true
+viaIR = true
 libs = ["lib"]
 optimizer = true
 optimizer_runs = 200
@@ -11,7 +11,9 @@ solc = "0.8.24"
 [rpc_endpoints]
 crossfi_testnet = "${CROSSFI_RPC_URL}"
 celo_alfajores = "${CELO_RPC_URL}"
-sonic_blaze_testnet = "${SONIC_BLAZE_TESTNET_RPC_URL}"
+sonic_blaze_testnet = "${SONIC_RPC_URL}"
 
+[etherscan]
+sonic = { key = "${SONICSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api", chain = 146 }
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

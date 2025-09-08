@@ -22,7 +22,7 @@ import { convertCurrency } from "@/lib/currencyConverter";
 import { toast } from "react-toastify";
 import { erc20Abi } from "viem";
 
-const USDC_ADDRESS = "0x2F25deB3848C207fc8E0c34035B3Ba7fC157602B";
+const USDC_ADDRESS = "0x29219dd400f2Bf60E5a23d13Be72B486D4038894";
 const USDT_ADDRESS = "0xc2132D05D31c914a87C6611C10748AEb04B58e8F";
 
 export default function InvoiceViewPage() {
@@ -1163,7 +1163,7 @@ export default function InvoiceViewPage() {
                           <Link
                             to={`https://celo-alfajores.blockscout.com/token/${
                               payment.cryptoToken === "USDC"
-                                ? "0x2F25deB3848C207fc8E0c34035B3Ba7fC157602B"
+                                ? "0x29219dd400f2Bf60E5a23d13Be72B486D4038894"
                                 : "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"
                             }`}
                             target="_blank"

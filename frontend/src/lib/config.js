@@ -6,7 +6,7 @@ import {
   coinbaseWallet,
   walletConnectWallet,
 } from "@rainbow-me/rainbowkit/wallets";
-import { celoAlfajores } from "wagmi/chains";
+import { sonic } from "wagmi/chains";
 import { createConfig, http } from "wagmi";
 
 const REOWN_CLOUD_APP_ID = import.meta.env.VITE_REOWN_CLOUD_APP_ID || "";
@@ -36,12 +36,9 @@ const connectors = connectorsForWallets(
 
 export const config = createConfig({
   connectors,
-  chains: [celoAlfajores],
+  chains: [sonic],
   transports: {
-    [celoAlfajores.id]: http(
-      import.meta.env.VITE_CELO_ALFAJORES_RPC_URL ||
-        "https://alfajores-forno.celo-testnet.org"
-    ),
+    [sonic.id]: http(),
   },
   ssr: true,
 });

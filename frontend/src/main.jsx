@@ -41,8 +41,8 @@ createRoot(document.getElementById("root")).render(
   </StrictMode>
 );
 
-// USDT: 0xC9592d8D3AA150d62E9638C5588264abFc5D9976
-// USDC: 0x2F25deB3848C207fc8E0c34035B3Ba7fC157602B
+// USDT: 0x6047828dc181963ba44974801FF68e538dA5eaF9
+// USDC: 0x29219dd400f2Bf60E5a23d13Be72B486D4038894
 // Token Lock: 0x40E676D5Bd4553dE4E386D65119d5bbd747B7B67
 // Payment Lock: 0x863c0a15372F3F9f76901693895dC9a2A4605400
 // Backend contact api: https://v-pay-backend.vercel.app/api/workers

@@ -5,8 +5,8 @@ pragma solidity ^0.8.24;
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Tether is ERC20, Ownable {
-    constructor() ERC20("Tether", "USDT") Ownable(msg.sender) {
+contract MockUSD is ERC20, Ownable {
+    constructor() ERC20("MockUSD", "USD") Ownable(msg.sender) {
         mint(msg.sender, 1_000_000_000_000 * 10 ** decimals());
     }
 

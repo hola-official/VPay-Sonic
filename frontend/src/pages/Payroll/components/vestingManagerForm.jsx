@@ -65,12 +65,12 @@ export default function VestingManagerForm() {
   const [tokenSelection, setTokenSelection] = useState("custom");
   const [predefinedTokens] = useState({
     usdt: {
-      address: "0xC9592d8D3AA150d62E9638C5588264abFc5D9976",
+      address: "0x6047828dc181963ba44974801FF68e538dA5eaF9",
       name: "Tether USD",
       symbol: "USDT",
     },
     usdc: {
-      address: "0x2F25deB3848C207fc8E0c34035B3Ba7fC157602B",
+      address: "0x29219dd400f2Bf60E5a23d13Be72B486D4038894",
       name: "USD Coin",
       symbol: "USDC",
     },
